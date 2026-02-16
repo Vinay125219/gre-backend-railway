@@ -1,18 +1,31 @@
 # EDU Learning Platform
 
-Flutter client for a GRE coaching platform.
+Flutter client plus a minimal Node backend bootstrap for Railway.
 
 ## Current State
 
 - Legacy PHP backend integration has been removed.
 - The app is running in **local mock mode** (in-memory data only).
-- Project is now cleaned and ready for Railway backend integration.
+- A starter Railway backend is available at `server/index.js`.
 
 ## Run The App (Mock Mode)
 
 ```bash
 flutter pub get
 flutter run
+```
+
+## Run Backend Locally (Railway Starter)
+
+```bash
+npm install
+npm start
+```
+
+Health check:
+
+```bash
+curl http://localhost:8080/health
 ```
 
 ## Demo Login
@@ -30,6 +43,6 @@ Follow the beginner step-by-step guide:
 That guide covers:
 
 1. Creating and pushing your GitHub repository.
-2. Connecting Railway to GitHub.
+2. Connecting Railway to GitHub and deploying with `npm start`.
 3. Configuring variables and public domain.
 4. Preparing this Flutter app for Railway API URL integration.

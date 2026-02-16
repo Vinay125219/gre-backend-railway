@@ -43,13 +43,17 @@ In Railway dashboard:
 
 Railway will trigger deployments from your selected branch.
 
-## 4. Backend Service Structure Recommendation
+## 4. Why Your Previous Deploy Failed
 
-For cleaner separation, keep backend code in its own folder, for example:
+Railway detected Node but could not find a start command.
 
-- `railway-backend/`
+This repo now includes:
 
-Then in Railway service settings, set the **Root Directory** to that backend folder.
+- `package.json` with `"start": "node server/index.js"`
+- backend entrypoint at `server/index.js`
+- health endpoint at `/health`
+
+So Railway can deploy directly from repository root.
 
 ## 5. Configure Environment Variables In Railway
 
@@ -58,8 +62,8 @@ In your Railway service:
 1. Open `Variables` tab.
 2. Add required variables (example):
    - `NODE_ENV=production`
-   - `JWT_SECRET=<strong-secret>`
-   - `DATABASE_URL=<from Railway Postgres service>`
+   - `PORT=8080` (optional, Railway injects `PORT` automatically)
+   - `CORS_ORIGIN=*` (tighten later to your real frontend domain)
 
 Do not commit real secrets to GitHub.
 
@@ -90,3 +94,12 @@ After your Railway backend endpoints are ready, we will do these next steps toge
 2. Add a single `API_BASE_URL` config point.
 3. Replace mock repositories feature by feature.
 4. Verify login, courses, content, tests, and analytics against Railway.
+
+## 9. Quick Verify Commands
+
+After Railway deploy succeeds, test:
+
+```bash
+curl https://<YOUR-RAILWAY-DOMAIN>/health
+curl https://<YOUR-RAILWAY-DOMAIN>/api/v1/status
+```
