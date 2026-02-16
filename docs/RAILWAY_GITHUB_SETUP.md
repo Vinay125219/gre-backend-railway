@@ -49,7 +49,7 @@ Railway detected Node but could not find a start command.
 
 This repo now includes:
 
-- `package.json` with `"start": "node server/index.js"`
+- `package.json` with `"start": "node index.js"`
 - backend entrypoint at `server/index.js`
 - health endpoint at `/health`
 
@@ -62,8 +62,9 @@ In your Railway service:
 1. Open `Variables` tab.
 2. Add required variables (example):
    - `NODE_ENV=production`
-   - `PORT=8080` (optional, Railway injects `PORT` automatically)
-   - `CORS_ORIGIN=*` (tighten later to your real frontend domain)
+   - `CORS_ORIGIN=*` (set this to your frontend domain later)
+3. Do **not** set `PORT` manually.
+4. Do **not** set `HOST` manually.
 
 Do not commit real secrets to GitHub.
 
@@ -103,3 +104,22 @@ After Railway deploy succeeds, test:
 curl https://<YOUR-RAILWAY-DOMAIN>/health
 curl https://<YOUR-RAILWAY-DOMAIN>/api/v1/status
 ```
+
+## 10. Fix "Deploy -> Configure network" Failures
+
+If build succeeds but deploy fails at `Configure network`, use this checklist:
+
+1. `Settings -> Source`:
+   - `Root Directory` should be blank (or `.`), not `/`.
+   - Branch should be `main`.
+2. `Variables`:
+   - Remove custom `PORT` and `HOST` if you added them.
+   - Keep only app variables like `NODE_ENV` and `CORS_ORIGIN`.
+3. `Settings -> Healthcheck Path`:
+   - Set to `/health`.
+4. `Settings -> Networking`:
+   - Generate a Railway domain once.
+   - If a custom domain is attached and failing, detach it first.
+5. Redeploy from the latest `main` commit.
+
+This repository now includes `railway.json` with a safe default deploy setup.

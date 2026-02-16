@@ -25,7 +25,7 @@ npm start
 Health check:
 
 ```bash
-curl http://localhost:8080/health
+curl http://localhost:3000/health
 ```
 
 ## Demo Login
