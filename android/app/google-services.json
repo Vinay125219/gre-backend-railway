@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "710073372150",
+    "project_id": "voice-notes-cdcf0",
+    "storage_bucket": "voice-notes-cdcf0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710073372150:android:fa1fd19573b3fe95058bd7",
+        "android_client_info": {
+          "package_name": "com.techmigos.edu_learning_platform"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710073372150-cf28hd7vtvokfkujtmc38lk9d7hf29vg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzVq7ffKC3HzQXvsL68DZ3v0_8hHKgEfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710073372150-cf28hd7vtvokfkujtmc38lk9d7hf29vg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,49 @@
+type User @table {
+  authId: String!
+  role: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  createdAt: Timestamp!
+  enrollmentDate: Date
+  profilePictureUrl: String
+}
+
+type Course @table {
+  title: String!
+  description: String!
+  courseCode: String!
+  createdAt: Timestamp!
+  startDate: Date
+  endDate: Date
+  instructorName: String
+}
+
+type Enrollment @table(key: ["user", "course"]) {
+  user: User!
+  course: Course!
+  enrollmentDate: Date!
+  status: String!
+  completionDate: Date
+  grade: String
+}
+
+type MockTest @table {
+  course: Course!
+  title: String!
+  description: String!
+  maxScore: Int!
+  durationMinutes: Int!
+  createdAt: Timestamp!
+  availableFrom: Timestamp
+  availableTo: Timestamp
+}
+
+type TestAttempt @table {
+  user: User!
+  mockTest: MockTest!
+  attemptDate: Timestamp!
+  score: Float!
+  createdAt: Timestamp!
+  completionTimeMinutes: Int
+}

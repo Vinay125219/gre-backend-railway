@@ -1,0 +1,16 @@
+# Flutter Launcher Icons Configuration
+# Run: dart run flutter_launcher_icons
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: false  # Disabled - iOS directory not present
+  image_path: "assets/icons/app_icon.png"
+  adaptive_icon_background: "#1565C0"
+  adaptive_icon_foreground: "assets/icons/app_icon_foreground.png"
+  min_sdk_android: 21
+  web:
+    generate: false
+  windows:
+    generate: false
+  macos:
+    generate: false

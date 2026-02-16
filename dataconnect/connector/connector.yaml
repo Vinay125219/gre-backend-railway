@@ -1,0 +1,7 @@
+connectorId: default
+generate:
+  dartSdk:
+    - outputDir: ../edu_learning_platform/lib/generated/dataconnect
+      package: edu_learning_platform_dataconnect
+    - outputDir: ../../edu_learning_platform/lib/dataconnect_generated
+      package: dataconnect_generated/generated.dart

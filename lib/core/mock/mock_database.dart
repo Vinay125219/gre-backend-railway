@@ -1,0 +1,332 @@
+import '../../features/admin/content/domain/entities/content_entity.dart';
+import '../../features/auth/domain/entities/user_entity.dart';
+import '../../features/student/courses/domain/entities/course_entity.dart';
+import '../../features/student/materials/domain/entities/material_entity.dart';
+import '../../features/student/tests/domain/entities/test_entity.dart';
+
+/// Shared in-memory database used while backend integration is disabled.
+class MockDatabase {
+  static final MockDatabase _instance = MockDatabase._internal();
+  factory MockDatabase() => _instance;
+  MockDatabase._internal();
+
+  final List<UserEntity> users = [
+    UserEntity(
+      id: 'mock-admin-id',
+      email: 'admin@test.com',
+      displayName: 'Admin User',
+      role: 'admin',
+      createdAt: DateTime(2024, 1, 1),
+      lastLoginAt: DateTime.now(),
+    ),
+    UserEntity(
+      id: 'mock-student-id',
+      email: 'student@test.com',
+      displayName: 'Student User',
+      role: 'student',
+      createdAt: DateTime(2024, 2, 1),
+      lastLoginAt: DateTime.now().subtract(const Duration(days: 1)),
+    ),
+    UserEntity(
+      id: 'mock-student-2',
+      email: 'student2@test.com',
+      displayName: 'Second Student',
+      role: 'student',
+      createdAt: DateTime(2024, 3, 15),
+      lastLoginAt: DateTime.now().subtract(const Duration(days: 3)),
+    ),
+  ];
+
+  final List<CourseEntity> courses = [
+    CourseEntity(
+      id: 'course-verbal',
+      title: 'GRE Verbal Mastery',
+      description: 'Build vocabulary, reading, and verbal accuracy.',
+      sections: const ['Verbal Reasoning'],
+      published: true,
+      materialCount: 3,
+      testCount: 1,
+      createdAt: DateTime(2024, 5, 1),
+    ),
+    CourseEntity(
+      id: 'course-quant',
+      title: 'GRE Quant Foundations',
+      description: 'Core arithmetic, algebra, geometry, and data analysis.',
+      sections: const ['Quantitative Reasoning'],
+      published: true,
+      materialCount: 2,
+      testCount: 1,
+      createdAt: DateTime(2024, 6, 10),
+    ),
+    CourseEntity(
+      id: 'course-awa',
+      title: 'GRE AWA Writing Clinic',
+      description: 'Structured essay strategy for Analyze an Argument tasks.',
+      sections: const ['Analytical Writing'],
+      published: true,
+      materialCount: 1,
+      testCount: 0,
+      createdAt: DateTime(2024, 7, 3),
+    ),
+  ];
+
+  final List<EnrollmentEntity> enrollments = [
+    EnrollmentEntity(
+      id: 'enroll-1',
+      studentId: 'mock-student-id',
+      courseId: 'course-verbal',
+      enrolledAt: DateTime(2024, 7, 1),
+      progress: 0.65,
+      completedMaterials: 2,
+      completedTests: 1,
+    ),
+    EnrollmentEntity(
+      id: 'enroll-2',
+      studentId: 'mock-student-id',
+      courseId: 'course-quant',
+      enrolledAt: DateTime(2024, 7, 8),
+      progress: 0.35,
+      completedMaterials: 1,
+      completedTests: 0,
+    ),
+    EnrollmentEntity(
+      id: 'enroll-3',
+      studentId: 'mock-student-2',
+      courseId: 'course-verbal',
+      enrolledAt: DateTime(2024, 8, 20),
+      progress: 0.5,
+      completedMaterials: 1,
+      completedTests: 1,
+    ),
+  ];
+
+  final List<ContentEntity> contentItems = [
+    ContentEntity(
+      id: 'content-verbal-pdf-1',
+      courseId: 'course-verbal',
+      title: 'Text Completion Workbook',
+      description: 'Practice workbook for text completion questions.',
+      type: ContentType.pdf,
+      url:
+          'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      section: 'verbal',
+      metadata: {'size': 245760, 'pages': 24},
+      createdAt: DateTime.now().subtract(const Duration(days: 14)),
+    ),
+    ContentEntity(
+      id: 'content-verbal-video-1',
+      courseId: 'course-verbal',
+      title: 'Reading Comprehension Strategy',
+      description: 'Video walkthrough for passage mapping.',
+      type: ContentType.video,
+      url: 'https://www.youtube.com/watch?v=aqz-KE-bpKQ',
+      section: 'verbal',
+      metadata: {'duration': 630},
+      createdAt: DateTime.now().subtract(const Duration(days: 12)),
+    ),
+    ContentEntity(
+      id: 'content-verbal-note-1',
+      courseId: 'course-verbal',
+      title: 'Vocabulary Revision Plan',
+      description: 'Use spaced repetition with daily 30-word sets.',
+      type: ContentType.note,
+      url: '',
+      section: 'verbal',
+      createdAt: DateTime.now().subtract(const Duration(days: 10)),
+    ),
+    ContentEntity(
+      id: 'content-quant-pdf-1',
+      courseId: 'course-quant',
+      title: 'Quant Formula Sheet',
+      description: 'High-yield GRE quant formulas and shortcuts.',
+      type: ContentType.pdf,
+      url:
+          'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      section: 'quant',
+      metadata: {'size': 182000, 'pages': 12},
+      createdAt: DateTime.now().subtract(const Duration(days: 9)),
+    ),
+    ContentEntity(
+      id: 'content-quant-video-1',
+      courseId: 'course-quant',
+      title: 'Data Interpretation Drill',
+      description: 'Timed approach for tables and charts.',
+      type: ContentType.video,
+      url: 'https://www.youtube.com/watch?v=H14bBuluwB8',
+      section: 'quant',
+      metadata: {'duration': 780},
+      createdAt: DateTime.now().subtract(const Duration(days: 7)),
+    ),
+    ContentEntity(
+      id: 'content-awa-note-1',
+      courseId: 'course-awa',
+      title: 'AWA Template',
+      description: 'Reusable structure for intro, body, and conclusion.',
+      type: ContentType.note,
+      url: '',
+      section: 'awa',
+      createdAt: DateTime.now().subtract(const Duration(days: 5)),
+    ),
+  ];
+
+  final List<TestEntity> tests = [
+    TestEntity(
+      id: 'test-verbal-1',
+      courseId: 'course-verbal',
+      title: 'Verbal Diagnostic 1',
+      description: 'Mixed verbal diagnostic set.',
+      section: 'verbal',
+      duration: 30,
+      totalQuestions: 3,
+      totalMarks: 5,
+      published: true,
+      shuffleQuestions: false,
+      createdAt: DateTime.now().subtract(const Duration(days: 14)),
+    ),
+    TestEntity(
+      id: 'test-quant-1',
+      courseId: 'course-quant',
+      title: 'Quant Diagnostic 1',
+      description: 'Timed quant diagnostic set.',
+      section: 'quant',
+      duration: 40,
+      totalQuestions: 3,
+      totalMarks: 6,
+      published: true,
+      shuffleQuestions: true,
+      createdAt: DateTime.now().subtract(const Duration(days: 10)),
+    ),
+  ];
+
+  final List<QuestionEntity> questions = [
+    QuestionEntity(
+      id: 'q-v-1',
+      testId: 'test-verbal-1',
+      orderIndex: 0,
+      type: QuestionType.mcq,
+      question: 'Choose the closest meaning of "abate".',
+      options: const ['Increase', 'Reduce', 'Repeat', 'Delay'],
+      correctAnswer: 'Reduce',
+      marks: 2,
+      negativeMarks: 1,
+    ),
+    QuestionEntity(
+      id: 'q-v-2',
+      testId: 'test-verbal-1',
+      orderIndex: 1,
+      type: QuestionType.mcq,
+      question: 'Identify the best transition word for contrast.',
+      options: const ['Moreover', 'However', 'Therefore', 'Likewise'],
+      correctAnswer: 'However',
+      marks: 2,
+      negativeMarks: 1,
+    ),
+    QuestionEntity(
+      id: 'q-v-3',
+      testId: 'test-verbal-1',
+      orderIndex: 2,
+      type: QuestionType.nat,
+      question: 'How many sections are there in the GRE verbal measure?',
+      correctAnswer: '2',
+      marks: 1,
+      negativeMarks: 0,
+    ),
+    QuestionEntity(
+      id: 'q-q-1',
+      testId: 'test-quant-1',
+      orderIndex: 0,
+      type: QuestionType.mcq,
+      question: 'If x + 5 = 12, what is x?',
+      options: const ['5', '6', '7', '8'],
+      correctAnswer: '7',
+      marks: 2,
+      negativeMarks: 1,
+    ),
+    QuestionEntity(
+      id: 'q-q-2',
+      testId: 'test-quant-1',
+      orderIndex: 1,
+      type: QuestionType.mcq,
+      question: 'What is 20% of 150?',
+      options: const ['25', '30', '35', '40'],
+      correctAnswer: '30',
+      marks: 2,
+      negativeMarks: 1,
+    ),
+    QuestionEntity(
+      id: 'q-q-3',
+      testId: 'test-quant-1',
+      orderIndex: 2,
+      type: QuestionType.nat,
+      question: 'Solve for y: 3y = 24.',
+      correctAnswer: '8',
+      marks: 2,
+      negativeMarks: 0,
+    ),
+  ];
+
+  final List<TestAttemptEntity> attempts = [
+    TestAttemptEntity(
+      id: 'attempt-1',
+      testId: 'test-verbal-1',
+      studentId: 'mock-student-id',
+      status: AttemptStatus.completed,
+      startedAt: DateTime.now().subtract(const Duration(days: 3, minutes: 30)),
+      completedAt: DateTime.now().subtract(const Duration(days: 3)),
+      answers: const {'q-v-1': 'Reduce', 'q-v-2': 'Moreover', 'q-v-3': '2'},
+      markedForReview: const {'q-v-2': true},
+      score: 3,
+      totalMarks: 5,
+      accuracy: 66.67,
+      correctCount: 2,
+      wrongCount: 1,
+      unattemptedCount: 0,
+      timeTaken: 1620,
+    ),
+    TestAttemptEntity(
+      id: 'attempt-2',
+      testId: 'test-quant-1',
+      studentId: 'mock-student-id',
+      status: AttemptStatus.completed,
+      startedAt: DateTime.now().subtract(const Duration(days: 2, minutes: 32)),
+      completedAt: DateTime.now().subtract(const Duration(days: 2)),
+      answers: const {'q-q-1': '7', 'q-q-2': '30', 'q-q-3': '8'},
+      markedForReview: const {},
+      score: 6,
+      totalMarks: 6,
+      accuracy: 100,
+      correctCount: 3,
+      wrongCount: 0,
+      unattemptedCount: 0,
+      timeTaken: 1560,
+    ),
+    TestAttemptEntity(
+      id: 'attempt-3',
+      testId: 'test-verbal-1',
+      studentId: 'mock-student-2',
+      status: AttemptStatus.completed,
+      startedAt: DateTime.now().subtract(const Duration(days: 1, minutes: 25)),
+      completedAt: DateTime.now().subtract(const Duration(days: 1)),
+      answers: const {'q-v-1': 'Reduce', 'q-v-2': 'However'},
+      markedForReview: const {'q-v-3': true},
+      score: 4,
+      totalMarks: 5,
+      accuracy: 66.67,
+      correctCount: 2,
+      wrongCount: 0,
+      unattemptedCount: 1,
+      timeTaken: 1500,
+    ),
+  ];
+
+  final List<MaterialProgressEntity> materialProgress = [
+    MaterialProgressEntity(
+      id: 'progress-1',
+      materialId: 'content-verbal-pdf-1',
+      studentId: 'mock-student-id',
+      completed: false,
+      lastPage: 10,
+      lastAccessedAt: DateTime.now().subtract(const Duration(days: 1)),
+    ),
+  ];
+}

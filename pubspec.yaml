@@ -1,0 +1,116 @@
+name: edu_learning_platform
+description: "EDU Learning Platform - GRE Coaching Institute App"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # Firebase dependencies removed
+
+
+  # State Management
+  flutter_bloc: ^9.1.1
+  hydrated_bloc: ^10.1.1
+  equatable: ^2.0.5
+
+  # Routing
+  go_router: ^17.0.1
+
+  # Dependency Injection
+  get_it: ^9.2.0
+  injectable: ^2.3.2
+
+  # UI & Design
+  flutter_svg: ^2.0.9
+  cached_network_image: ^3.3.1
+  shimmer: ^3.0.0
+  google_fonts: ^7.0.0
+  lottie: ^3.0.0
+  flutter_animate: ^4.3.0
+  percent_indicator: ^4.2.3
+
+  # PDF & Video
+  syncfusion_flutter_pdfviewer: ^32.1.22
+  youtube_player_flutter: ^9.1.3
+  chewie: ^1.7.4
+  video_player: ^2.8.2
+
+  # Charts
+  fl_chart: ^1.1.1
+
+  # Utilities
+  dartz: ^0.10.1
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.8.1
+  intl: ^0.20.2
+  connectivity_plus: ^7.0.0
+  shared_preferences: ^2.2.2
+  uuid: ^4.3.0
+  url_launcher: ^6.2.4
+  file_picker: ^10.3.8
+  path_provider: ^2.1.2
+  share_plus: ^10.1.4
+  logger: ^2.6.2
+  web: ^1.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.4.8
+  injectable_generator: ^2.4.1
+  freezed: ^3.2.3
+  json_serializable: ^6.7.1
+  mocktail: ^1.0.2
+  bloc_test: ^10.0.0
+  flutter_launcher_icons: ^0.14.4
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # Assets
+  assets:
+    - assets/icons/
+    - assets/images/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package

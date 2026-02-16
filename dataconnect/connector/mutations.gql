@@ -1,0 +1,198 @@
+# User Mutations
+mutation CreateUser(
+  $authId: String!
+  $role: String!
+  $firstName: String!
+  $lastName: String!
+  $email: String!
+  $profilePictureUrl: String
+) @auth(level: USER) {
+  user_insert(
+    data: {
+      authId: $authId
+      role: $role
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      createdAt: { now: true }
+      profilePictureUrl: $profilePictureUrl
+    }
+  )
+}
+
+mutation UpdateUser(
+  $id: UUID!
+  $firstName: String
+  $lastName: String
+  $profilePictureUrl: String
+) @auth(level: USER) {
+  user_update(
+    id: $id
+    data: {
+      firstName: $firstName
+      lastName: $lastName
+      profilePictureUrl: $profilePictureUrl
+    }
+  )
+}
+
+mutation DeleteUser($id: UUID!) @auth(level: USER) {
+  user_delete(id: $id)
+}
+
+# Course Mutations (Admin only in practice)
+mutation CreateCourse(
+  $title: String!
+  $description: String!
+  $courseCode: String!
+  $startDate: Date
+  $endDate: Date
+  $instructorName: String
+) @auth(level: USER) {
+  course_insert(
+    data: {
+      title: $title
+      description: $description
+      courseCode: $courseCode
+      createdAt: { now: true }
+      startDate: $startDate
+      endDate: $endDate
+      instructorName: $instructorName
+    }
+  )
+}
+
+mutation UpdateCourse(
+  $id: UUID!
+  $title: String
+  $description: String
+  $startDate: Date
+  $endDate: Date
+  $instructorName: String
+) @auth(level: USER) {
+  course_update(
+    id: $id
+    data: {
+      title: $title
+      description: $description
+      startDate: $startDate
+      endDate: $endDate
+      instructorName: $instructorName
+    }
+  )
+}
+
+mutation DeleteCourse($id: UUID!) @auth(level: USER) {
+  course_delete(id: $id)
+}
+
+# Enrollment Mutations
+mutation EnrollUser(
+  $userId: UUID!
+  $courseId: UUID!
+  $enrollmentDate: Date!
+  $status: String!
+) @auth(level: USER) {
+  enrollment_insert(
+    data: {
+      user: { id: $userId }
+      course: { id: $courseId }
+      enrollmentDate: $enrollmentDate
+      status: $status
+    }
+  )
+}
+
+mutation UpdateEnrollment(
+  $userId: UUID!
+  $courseId: UUID!
+  $status: String
+  $completionDate: Date
+  $grade: String
+) @auth(level: USER) {
+  enrollment_update(
+    key: { user: { id: $userId }, course: { id: $courseId } }
+    data: {
+      status: $status
+      completionDate: $completionDate
+      grade: $grade
+    }
+  )
+}
+
+mutation UnenrollUser($userId: UUID!, $courseId: UUID!) @auth(level: USER) {
+  enrollment_delete(key: { user: { id: $userId }, course: { id: $courseId } })
+}
+
+# Mock Test Mutations
+mutation CreateMockTest(
+  $courseId: UUID!
+  $title: String!
+  $description: String!
+  $maxScore: Int!
+  $durationMinutes: Int!
+  $availableFrom: Timestamp
+  $availableTo: Timestamp
+) @auth(level: USER) {
+  mockTest_insert(
+    data: {
+      course: { id: $courseId }
+      title: $title
+      description: $description
+      maxScore: $maxScore
+      durationMinutes: $durationMinutes
+      createdAt: { now: true }
+      availableFrom: $availableFrom
+      availableTo: $availableTo
+    }
+  )
+}
+
+mutation UpdateMockTest(
+  $id: UUID!
+  $title: String
+  $description: String
+  $maxScore: Int
+  $durationMinutes: Int
+  $availableFrom: Timestamp
+  $availableTo: Timestamp
+) @auth(level: USER) {
+  mockTest_update(
+    id: $id
+    data: {
+      title: $title
+      description: $description
+      maxScore: $maxScore
+      durationMinutes: $durationMinutes
+      availableFrom: $availableFrom
+      availableTo: $availableTo
+    }
+  )
+}
+
+mutation DeleteMockTest($id: UUID!) @auth(level: USER) {
+  mockTest_delete(id: $id)
+}
+
+# Test Attempt Mutations
+mutation RecordTestAttempt(
+  $userId: UUID!
+  $mockTestId: UUID!
+  $score: Float!
+  $completionTimeMinutes: Int
+) @auth(level: USER) {
+  testAttempt_insert(
+    data: {
+      user: { id: $userId }
+      mockTest: { id: $mockTestId }
+      attemptDate: { now: true }
+      score: $score
+      createdAt: { now: true }
+      completionTimeMinutes: $completionTimeMinutes
+    }
+  )
+}
+
+mutation DeleteTestAttempt($id: UUID!) @auth(level: USER) {
+  testAttempt_delete(id: $id)
+}

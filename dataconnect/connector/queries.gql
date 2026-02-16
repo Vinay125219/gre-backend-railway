@@ -1,0 +1,153 @@
+# User Queries
+query GetUserByAuthId($authId: String!) @auth(level: USER) {
+  users(where: { authId: { eq: $authId } }) {
+    id
+    authId
+    role
+    firstName
+    lastName
+    email
+    createdAt
+    enrollmentDate
+    profilePictureUrl
+  }
+}
+
+query GetUserById($id: UUID!) @auth(level: USER) {
+  user(id: $id) {
+    id
+    authId
+    role
+    firstName
+    lastName
+    email
+    createdAt
+    enrollmentDate
+    profilePictureUrl
+  }
+}
+
+# Course Queries
+query ListCourses @auth(level: USER) {
+  courses {
+    id
+    title
+    description
+    courseCode
+    createdAt
+    startDate
+    endDate
+    instructorName
+  }
+}
+
+query GetCourseById($id: UUID!) @auth(level: USER) {
+  course(id: $id) {
+    id
+    title
+    description
+    courseCode
+    createdAt
+    startDate
+    endDate
+    instructorName
+  }
+}
+
+# Enrollment Queries
+query GetUserEnrollments($userId: UUID!) @auth(level: USER) {
+  enrollments(where: { user: { id: { eq: $userId } } }) {
+    user {
+      id
+    }
+    course {
+      id
+      title
+      description
+      courseCode
+    }
+    enrollmentDate
+    status
+    completionDate
+    grade
+  }
+}
+
+query GetCourseEnrollments($courseId: UUID!) @auth(level: USER) {
+  enrollments(where: { course: { id: { eq: $courseId } } }) {
+    user {
+      id
+      firstName
+      lastName
+      email
+    }
+    enrollmentDate
+    status
+    grade
+  }
+}
+
+# Mock Test Queries
+query ListMockTestsByCourse($courseId: UUID!) @auth(level: USER) {
+  mockTests(where: { course: { id: { eq: $courseId } } }) {
+    id
+    title
+    description
+    maxScore
+    durationMinutes
+    createdAt
+    availableFrom
+    availableTo
+    course {
+      id
+      title
+    }
+  }
+}
+
+query GetMockTestById($id: UUID!) @auth(level: USER) {
+  mockTest(id: $id) {
+    id
+    title
+    description
+    maxScore
+    durationMinutes
+    createdAt
+    availableFrom
+    availableTo
+    course {
+      id
+      title
+    }
+  }
+}
+
+# Test Attempt Queries
+query GetUserTestAttempts($userId: UUID!) @auth(level: USER) {
+  testAttempts(where: { user: { id: { eq: $userId } } }) {
+    id
+    attemptDate
+    score
+    completionTimeMinutes
+    createdAt
+    mockTest {
+      id
+      title
+      maxScore
+    }
+  }
+}
+
+query GetTestAttemptsByMockTest($mockTestId: UUID!) @auth(level: USER) {
+  testAttempts(where: { mockTest: { id: { eq: $mockTestId } } }) {
+    id
+    user {
+      id
+      firstName
+      lastName
+    }
+    attemptDate
+    score
+    completionTimeMinutes
+  }
+}
