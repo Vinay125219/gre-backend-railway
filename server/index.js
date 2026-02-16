@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const app = express();
 const port = Number(process.env.PORT || 8080);
+const host = process.env.HOST || '0.0.0.0';
 const corsOrigin = process.env.CORS_ORIGIN || '*';
 
 app.use(
@@ -52,7 +53,7 @@ app.use((req, res) => {
   });
 });
 
-app.listen(port, () => {
+app.listen(port, host, () => {
   // eslint-disable-next-line no-console
-  console.log(`API server listening on port ${port}`);
+  console.log(`API server listening on ${host}:${port}`);
 });
