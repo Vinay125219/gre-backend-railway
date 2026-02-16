@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-const port = Number(process.env.PORT || 8080);
+const port = Number(process.env.PORT || 3000);
 const host = process.env.HOST || '0.0.0.0';
 const corsOrigin = process.env.CORS_ORIGIN || '*';
 
